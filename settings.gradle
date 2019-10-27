@@ -1,0 +1,2 @@
+include ':app', ':attpromodialog'
+rootProject.name='Promo Dialog'
