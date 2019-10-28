@@ -19,8 +19,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.attlib.attpromodialog.indicator.IndicatorView;
-
 import java.util.Random;
 
 public class PromoDialog extends DialogFragment {
@@ -106,7 +104,6 @@ public class PromoDialog extends DialogFragment {
         });
 
         IndicatorView indicatorView = mRootView.findViewById(R.id.images_indicator);
-        indicatorView.setCurrentPosition(mCurrentIndex);
         indicatorView.setViewPager(vpImages);
 
         updatePromoDataToViews(mCurrentIndex);

@@ -1,4 +1,4 @@
-package com.attlib.attpromodialog.indicator;
+package com.attlib.attpromodialog;
 
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PointF;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -14,7 +16,7 @@ import android.view.View;
 import com.attlib.attpromodialog.R;
 
 
-public class IndicatorView extends View implements IUserCustomize {
+public class IndicatorView extends View {
     private static final long DEFAULT_ANIMATE_DURATION = 200;
     private static final int DEFAULT_RADIUS_SELECTED = 20;
     private static final int DEFAULT_RADIUS_UNSELECTED = 15;
@@ -128,39 +130,29 @@ public class IndicatorView extends View implements IUserCustomize {
         }
     }
 
-    @Override
     public void setViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
         viewPager.addOnPageChangeListener(listener);
         if (viewPager.getAdapter() != null) {
             initDot(viewPager.getAdapter().getCount());
-            listener.onPageSelected(0);
+            listener.onPageSelected(viewPager.getCurrentItem());
         } else {
             Log.e("MYLOG", "ViewPager Adapter is NULL");
         }
-
     }
 
-    public void setCurrentPosition(int currentPosition) {
-        this.currentPosition = currentPosition;
-    }
-
-    @Override
     public void setAnimateDuration(long duration) {
         this.animateDuration = duration;
     }
 
-    @Override
     public void setRadiusSelected(int radius) {
         this.radiusSelected = radius;
     }
 
-    @Override
     public void setRadiusUnselected(int radius) {
         this.radiusUnselected = radius;
     }
 
-    @Override
     public void setDistanceDot(int distance) {
         this.distance = distance;
     }
@@ -232,4 +224,42 @@ public class IndicatorView extends View implements IUserCustomize {
 
         }
     };
+
+    private class Dot {
+        private Paint paint;
+
+        private PointF center;
+
+        private int currentRadius;
+
+        public Dot() {
+            paint = new Paint();
+            paint.setAntiAlias(true);
+            center = new PointF();
+        }
+
+        public void setColor(int color) {
+            paint.setColor(color);
+        }
+
+        public void setAlpha(int alpha) {
+            paint.setAlpha(alpha);
+        }
+
+        public void setCenter(float x, float y) {
+            center.set(x, y);
+        }
+
+        public int getCurrentRadius() {
+            return currentRadius;
+        }
+
+        public void setCurrentRadius(int radius) {
+            this.currentRadius = radius;
+        }
+
+        public void draw(Canvas canvas) {
+            canvas.drawCircle(center.x, center.y, currentRadius, paint);
+        }
+    }
 }

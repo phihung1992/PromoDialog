@@ -44,16 +44,6 @@ public class PromoDialogManager {
         return new PromoDialog().setData(mAdDialogInfos);
     }
 
-    private String getConFigFileName(String packageName) {
-        String[] splitText = packageName.split("[.]");
-        String res = "";
-        for (String text : splitText) {
-            res += text;
-        }
-        res += ".json";
-        return res;
-    }
-
     private Retrofit getRetrofitClient(final String userName, final String password, final String packageName) {
         if (retrofit == null) {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
