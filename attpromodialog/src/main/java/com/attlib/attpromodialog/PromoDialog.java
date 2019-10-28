@@ -70,6 +70,13 @@ public class PromoDialog extends DialogFragment {
     }
 
     private void initViews() {
+        mRootView.findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
         if (mData == null || mData.length == 0) return;
 
         mTvAppName = mRootView.findViewById(R.id.tv_app_name);
@@ -99,17 +106,10 @@ public class PromoDialog extends DialogFragment {
         });
 
         IndicatorView indicatorView = mRootView.findViewById(R.id.images_indicator);
-        indicatorView.setViewPager(vpImages);
         indicatorView.setCurrentPosition(mCurrentIndex);
+        indicatorView.setViewPager(vpImages);
 
         updatePromoDataToViews(mCurrentIndex);
-
-        mRootView.findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
 
         mRootView.findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
             @Override

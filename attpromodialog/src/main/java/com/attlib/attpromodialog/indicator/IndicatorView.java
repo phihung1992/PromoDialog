@@ -100,23 +100,31 @@ public class IndicatorView extends View implements IUserCustomize {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
 
-        float yCenter = getHeight() / 2;
-        int d = distance + 2 * radiusUnselected;
-        float firstXCenter = (getWidth() / 2) - ((dots.length - 1) * d / 2);
+        updateDots();
+    }
 
-        for (int i = 0; i < dots.length; i++) {
-            dots[i].setCenter(i == 0 ? firstXCenter : firstXCenter + d * i, yCenter);
-            dots[i].setCurrentRadius(i == currentPosition ? radiusSelected : radiusUnselected);
-            dots[i].setColor(i == currentPosition ? colorSelected : colorUnselected);
-            dots[i].setAlpha(i == currentPosition ? 255 : radiusUnselected * 255 / radiusSelected);
+    private void updateDots() {
+        if (dots != null) {
+            float yCenter = getHeight() / 2;
+            int d = distance + 2 * radiusUnselected;
+            float firstXCenter = (getWidth() / 2) - ((dots.length - 1) * d / 2);
+
+            for (int i = 0; i < dots.length; i++) {
+                dots[i].setCenter(i == 0 ? firstXCenter : firstXCenter + d * i, yCenter);
+                dots[i].setCurrentRadius(i == currentPosition ? radiusSelected : radiusUnselected);
+                dots[i].setColor(i == currentPosition ? colorSelected : colorUnselected);
+                dots[i].setAlpha(i == currentPosition ? 255 : radiusUnselected * 255 / radiusSelected);
+            }
         }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (Dot dot : dots) {
-            dot.draw(canvas);
+        if (dots != null) {
+            for (Dot dot : dots) {
+                dot.draw(canvas);
+            }
         }
     }
 
