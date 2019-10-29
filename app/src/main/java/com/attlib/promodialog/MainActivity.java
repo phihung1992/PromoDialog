@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_show_dialog).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PromoDialogManager.getInstance().newDialog()
+                boolean showResult = PromoDialogManager.getInstance().newDialog()
                         .setCanceled(true, false)
                         .setListener(new PromoDialog.OnCallBack() {
                             @Override
@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
                         .show(MainActivity.this);
+                if (!showResult) {
+                    finish();
+                }
             }
         });
     }

@@ -40,6 +40,20 @@ public class PromoDialog extends DialogFragment {
         return this;
     }
 
+    private boolean HaveDisplayedData() {
+        if (mData == null || mData.length == 0) {
+            return false;
+        }
+
+        for (AdDialogInfo info : mData) {
+            if (info.getIsAppeared()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public PromoDialog setCanceled(boolean canceledByBackButton, boolean canceledByTouchOutSite) {
         mCanceledByBackButton = canceledByBackButton;
         mCanceledByTouchOutSite = canceledByTouchOutSite;
@@ -51,11 +65,19 @@ public class PromoDialog extends DialogFragment {
         return this;
     }
 
-    public void show(FragmentActivity activity) {
+    public boolean show(FragmentActivity activity) {
         mContext = activity;
+
+        if (!HaveDisplayedData()) {
+            return false;
+        }
+
         if (activity != null && activity.getSupportFragmentManager() != null) {
             this.show(activity.getSupportFragmentManager(), "PromoDialog");
+            return true;
         }
+
+        return false;
     }
 
     @Nullable
@@ -74,7 +96,7 @@ public class PromoDialog extends DialogFragment {
                 dismiss();
             }
         });
-        
+
         mRootView.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
