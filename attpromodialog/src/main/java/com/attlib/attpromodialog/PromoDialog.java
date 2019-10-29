@@ -74,6 +74,14 @@ public class PromoDialog extends DialogFragment {
                 dismiss();
             }
         });
+        
+        mRootView.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) mListener.onCanceled();
+                dismiss();
+            }
+        });
 
         if (mData == null || mData.length == 0) return;
 
@@ -115,14 +123,6 @@ public class PromoDialog extends DialogFragment {
                 intent.setData(Uri.parse("market://details?id=" + mData[mCurrentIndex].getPromoAppPackage()));
                 mContext.startActivity(intent);
                 if (mListener != null) mListener.onOk();
-                dismiss();
-            }
-        });
-
-        mRootView.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) mListener.onCanceled();
                 dismiss();
             }
         });
