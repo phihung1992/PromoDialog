@@ -11,7 +11,7 @@ Step 1. Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        implementation 'com.github.phihung1992:PromoDialog:1.6'
+	        implementation 'com.github.phihung1992:PromoDialog:1.7'
 	}
 	
 Dependencies in library
